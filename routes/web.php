@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('main');
 
-Route::get('/contact-us', [MainController::class, 'contact'])->name('contact');
+Route::get('/contact-us', [MessageController::class, 'show'])->name('contact');
+
+Route::post('/contact-us', [MessageController::class, 'store'])->name('contact_store');
 
 Route::get('/about-us', [MainController::class, 'about'])->name('about');

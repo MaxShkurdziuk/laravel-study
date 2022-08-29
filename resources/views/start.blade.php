@@ -19,7 +19,8 @@
         <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
     </ul>
 </header>
-<div class="container text-center d-flex justify-content-center">
+<div class="container text-center justify-content-center">
+    @include('flash-messages')
     @yield('content')
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
