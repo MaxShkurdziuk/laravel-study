@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:1', 'max:255'],
-            'year' => ['required', 'numeric', 'digits_between:4,4'],
+            'year' => ['required', 'digits:4'],
             'description' => ['required', 'min:100'],
         ];
     }
