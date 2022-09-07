@@ -172,6 +172,8 @@ return [
         'email' => 'Email',
         'phone' => 'Mobile phone',
         'text' => 'Message',
+        'year' => 'Year of issue',
+        'description' => 'Film description',
     ],
 
 ];
