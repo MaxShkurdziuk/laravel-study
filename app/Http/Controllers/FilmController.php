@@ -25,7 +25,7 @@ class FilmController extends Controller
         $film->delete();
 
         session()->flash('success', 'Film deleted successfully!');
-        return redirect()->route('movies');
+        return redirect()->route('movies.list');
     }
 
     public function add(CreateRequest $request)

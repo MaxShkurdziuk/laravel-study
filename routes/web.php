@@ -3,6 +3,7 @@
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,16 +25,25 @@ Route::get('/contact-us', [MessageController::class, 'show'])->name('contact');
 
 Route::post('/contact-us', [MessageController::class, 'store'])->name('contact_store');
 
-Route::get('/movies/add', [FilmController::class, 'addFilm'])->name('movies.add.film');
+Route::group(['prefix' => '/movies', 'as' => 'movies.'], function () {
+    Route::get('/add', [FilmController::class, 'addFilm'])->name('add.film');
 
-Route::post('/movies/add', [FilmController::class, 'add'])->name('movies.add');
+    Route::post('/add', [FilmController::class, 'add'])->name('add');
 
-Route::get('/movies', [FilmController::class, 'list'])->name('movies');
+    Route::get('', [FilmController::class, 'list'])->name('list');
 
-Route::get('/movies/{film}', [FilmController::class, 'show'])->name('movies.show');
+    Route::group(['prefix' => '/{film}/edit'], function () {
+        Route::get('', [FilmController::class, 'editFilm'])->name('edit.film');
 
-Route::get('/movies/{film}/edit', [FilmController::class, 'editFilm'])->name('movies.edit.film');
+        Route::post('', [FilmController::class, 'edit'])->name('edit');
+    });
 
-Route::post('/movies/{film}/edit', [FilmController::class, 'edit'])->name('movies.edit');
+    Route::get('/{film}', [FilmController::class, 'show'])->name('show');
 
-Route::post('/movies/{film}/delete', [FilmController::class, 'delete'])->name('movies.delete');
+    Route::post('/{film}/delete', [FilmController::class, 'delete'])->name('delete');
+});
+
+Route::get('/sign-up', [UserController::class, 'signUpForm'])->name('sign-up.form');
+Route::post('/sign-up', [UserController::class, 'signUp'])->name('sign-up');
+
+Route::get('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])->name('verify.email');

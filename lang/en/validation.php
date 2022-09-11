@@ -174,6 +174,8 @@ return [
         'text' => 'Message',
         'year' => 'Year of issue',
         'description' => 'Film description',
+        'password' => 'Password',
+        'password_confirmation' => 'Confirm Password',
     ],
 
 ];
