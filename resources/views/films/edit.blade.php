@@ -25,6 +25,21 @@
                     @enderror
                 </div>
 
+
+                <div class="form-group">
+                    <label for="">Genres</label>
+                    @error('genres')
+                    <div>{{ $message }}</div>
+                    @enderror
+                    @foreach($genres as $genre)
+                        <div class="form-check">
+                            <input type="checkbox" name="genres[]" value="{{ $genre->id }}" class="form-check-input"
+                                   @if($film->genres->contains('id', $genre->id)) checked @endif
+                            > {{ $genre->name }}
+                        </div>
+                    @endforeach
+                </div>
+
                 <div class="mb-3">
                     <label for="description">{{__('validation.attributes.description') }}</label>
                     <textarea name="description" rows="3"

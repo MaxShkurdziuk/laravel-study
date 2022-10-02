@@ -19,4 +19,19 @@ class Film extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'film_genres');
+    }
+
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class, 'film_actors');
+    }
 }
