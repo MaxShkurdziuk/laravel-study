@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Film\CreateRequest;
-use App\Http\Requests\Film\DeleteRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Film\EditRequest;
 use App\Models\Film;
 use Illuminate\Http\Request;
@@ -52,7 +52,7 @@ class FilmController extends Controller
 
     public function list(Request $request)
     {
-        $films = Film::query()->paginate(4);
+        $films = Film::query()->paginate(3);
 
         return view('films.list', ['films' => $films]);
     }

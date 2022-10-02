@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MessageController;
@@ -25,7 +26,7 @@ Route::get('/contact-us', [MessageController::class, 'show'])->name('contact');
 
 Route::post('/contact-us', [MessageController::class, 'store'])->name('contact_store');
 
-Route::group(['prefix' => '/movies', 'as' => 'movies.'], function () {
+Route::group(['prefix' => '/movies', 'as' => 'movies.', 'middleware' => 'auth'], function () {
     Route::get('/add', [FilmController::class, 'addFilm'])->name('add.film');
 
     Route::post('/add', [FilmController::class, 'add'])->name('add');
@@ -47,3 +48,7 @@ Route::get('/sign-up', [UserController::class, 'signUpForm'])->name('sign-up.for
 Route::post('/sign-up', [UserController::class, 'signUp'])->name('sign-up');
 
 Route::get('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])->name('verify.email');
+
+Route::get('/sign-in', [AuthController::class, 'signInForm'])->name('login');
+Route::post('/sign-in', [AuthController::class, 'signIn'])->name('sign-in');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

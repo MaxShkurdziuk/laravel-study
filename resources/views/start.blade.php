@@ -15,12 +15,23 @@
     </div>
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="{{ route('main') }}" class="nav-link active" aria-current="page">Home</a></li>
+        @if (!auth()->check())
         <li class="nav-item"><a href="{{ route('sign-up.form') }}" class="nav-link">Sign Up</a></li>
+            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+        @endif
+        @if (auth()->check())
         <li class="nav-item"><a href="{{ route('movies.list') }}" class="nav-link">Movies</a></li>
         <li class="nav-item"><a href="{{ route('movies.add.film') }}" class="nav-link">Add Film</a></li>
+        @endif
         <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact Us</a></li>
         <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
     </ul>
+    @if (auth()->check())
+        <form action="{{ route('logout') }}" method="post" class="form-inline">
+            @csrf
+            <button class="btn btn-danger">Logout</button>
+        </form>
+    @endif
 </header>
 <div class="container text-center justify-content-center">
     @include('flash-messages')
