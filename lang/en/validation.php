@@ -176,6 +176,13 @@ return [
         'description' => 'Film description',
         'password' => 'Password',
         'password_confirmation' => 'Confirm Password',
+        'genres' => 'Genres',
+        'first_name' => 'First Name',
+        'last_name' => 'Last Name',
+        'middle_name' => 'Middle Name',
+        'birthday' => 'Birthday Date',
+        'height' => 'Height',
+        'actors' => 'Actors'
     ],
 
 ];

@@ -10,18 +10,24 @@
 <body class="bg-light">
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
     <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap"></use>
+        </svg>
         <span class="fs-4">Grand Movies list</span>
     </div>
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="{{ route('main') }}" class="nav-link active" aria-current="page">Home</a></li>
         @if (!auth()->check())
-        <li class="nav-item"><a href="{{ route('sign-up.form') }}" class="nav-link">Sign Up</a></li>
+            <li class="nav-item"><a href="{{ route('sign-up.form') }}" class="nav-link">Sign Up</a></li>
             <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
         @endif
         @if (auth()->check())
-        <li class="nav-item"><a href="{{ route('movies.list') }}" class="nav-link">Movies</a></li>
-        <li class="nav-item"><a href="{{ route('movies.add.film') }}" class="nav-link">Add Film</a></li>
+            <li class="nav-item"><a href="{{ route('movies.list') }}" class="nav-link">Movies</a></li>
+            <li class="nav-item"><a href="{{ route('movies.add.film') }}" class="nav-link">Add Film</a></li>
+            <li class="nav-item"><a href="{{ route('genres.list') }}" class="nav-link">Film Genres</a></li>
+            <li class="nav-item"><a href="{{ route('genres.add.genre') }}" class="nav-link">Add Film Genre</a></li>
+            <li class="nav-item"><a href="{{ route('actors.list') }}" class="nav-link">Actors</a></li>
+            <li class="nav-item"><a href="{{ route('actors.add.actor') }}" class="nav-link">Add Actor</a></li>
         @endif
         <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact Us</a></li>
         <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>

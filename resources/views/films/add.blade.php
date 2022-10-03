@@ -25,6 +25,26 @@
                     @enderror
                 </div>
 
+                <div class="row-cols-sm-4">
+                    <label for="">{{ __('validation.attributes.genres') }}</label>
+                    @foreach($genres as $genre)
+                        <div class="form-check">
+                            <input type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                                   class="form-check-input @error('genres') is-invalid @enderror"> {{ $genre->name }}
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="row-cols-sm-3">
+                    <label for="">{{ __('validation.attributes.actors') }}</label>
+                    @foreach($actors as $actor)
+                        <div class="form-check">
+                            <input type="checkbox" name="actors[]" value="{{ $actor->id }}"
+                                   class="form-check-input @error('actors') is-invalid @enderror"> {{ $actor->first_name }} {{ $actor->last_name }}
+                        </div>
+                    @endforeach
+                </div>
+
                 <div class="mb-3">
                     <label for="description">{{__('validation.attributes.description') }}</label>
                     <textarea name="description" rows="3"
