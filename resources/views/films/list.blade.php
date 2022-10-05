@@ -20,13 +20,18 @@
             <td>{{ $film->created_at?->format('d.m.y') }}</td>
             <td>
                 <a href="{{ route('movies.show', ['film' => $film->id]) }}" class="btn btn-info">Info</a>
+                @can('edit', $film)
                 <a href="{{ route('movies.edit.film', ['film' => $film->id]) }}" class="btn btn-warning">Edit</a>
+                @endcan
+
+                @can('delete', $film)
                 <form action="{{ route('movies.delete', ['film' => $film->id]) }}" method="post">
                     @csrf
                     <button type="submit" class="btn btn-outline-danger">
                         Delete
                     </button>
                 </form>
+                @endcan
             </td>
         </tr>
         @endforeach

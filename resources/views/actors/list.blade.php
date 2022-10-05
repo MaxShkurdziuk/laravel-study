@@ -22,13 +22,18 @@
             <td>{{ $actor->created_at?->format('d.m.y') }}</td>
             <td>
                 <a href="{{ route('actors.show', ['actor' => $actor->id]) }}" class="btn btn-info">Info</a>
+                @can('edit', $actor)
                 <a href="{{ route('actors.edit.actor', ['actor' => $actor->id]) }}" class="btn btn-warning">Edit</a>
+                @endcan
+
+                @can('delete', $actor)
                 <form action="{{ route('actors.delete', ['actor' => $actor->id]) }}" method="post">
                     @csrf
                     <button type="submit" class="btn btn-outline-danger">
                         Delete
                     </button>
                 </form>
+                @endcan
             </td>
         </tr>
         @endforeach

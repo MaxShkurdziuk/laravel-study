@@ -7,6 +7,9 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
+use App\Models\Actor;
+use App\Models\Film;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,11 +29,11 @@ Route::get('/contact-us', [MessageController::class, 'show'])->name('contact');
 Route::post('/contact-us', [MessageController::class, 'store'])->name('contact_store');
 
 Route::group(['prefix' => '/movies', 'as' => 'movies.', 'middleware' => 'auth'], function () {
-    Route::get('/add', [FilmController::class, 'addFilm'])->name('add.film');
-    Route::post('/add', [FilmController::class, 'add'])->name('add');
+    Route::get('/add', [FilmController::class, 'addFilm'])->name('add.film')->middleware('can:create,' . Film::class);
+    Route::post('/add', [FilmController::class, 'add'])->name('add')->middleware('can:create,' . Film::class);
     Route::get('', [FilmController::class, 'list'])->name('list');
 
-    Route::group(['prefix' => '/{film}/edit'], function () {
+    Route::group(['prefix' => '/{film}/edit', 'middleware' => 'can:edit,film'], function () {
         Route::get('', [FilmController::class, 'editFilm'])->name('edit.film');
         Route::post('', [FilmController::class, 'edit'])->name('edit');
     });
@@ -39,11 +42,11 @@ Route::group(['prefix' => '/movies', 'as' => 'movies.', 'middleware' => 'auth'],
 });
 
 Route::group(['prefix' => '/genres', 'as' => 'genres.', 'middleware' => 'auth'], function () {
-    Route::get('/add', [GenreController::class, 'addGenre'])->name('add.genre');
-    Route::post('/add', [GenreController::class, 'add'])->name('add');
+    Route::get('/add', [GenreController::class, 'addGenre'])->name('add.genre')->middleware('can:create,' . Genre::class);
+    Route::post('/add', [GenreController::class, 'add'])->name('add')->middleware('can:create,' . Genre::class);
     Route::get('', [GenreController::class, 'list'])->name('list');
 
-    Route::group(['prefix' => '/{genre}/edit'], function () {
+    Route::group(['prefix' => '/{genre}/edit', 'middleware' => 'can:edit,genre'], function () {
         Route::get('', [GenreController::class, 'editGenre'])->name('edit.genre');
         Route::post('', [GenreController::class, 'edit'])->name('edit');
     });
@@ -52,11 +55,11 @@ Route::group(['prefix' => '/genres', 'as' => 'genres.', 'middleware' => 'auth'],
 });
 
 Route::group(['prefix' => '/actors', 'as' => 'actors.', 'middleware' => 'auth'], function () {
-    Route::get('/add', [ActorController::class, 'addActor'])->name('add.actor');
-    Route::post('/add', [ActorController::class, 'add'])->name('add');
+    Route::get('/add', [ActorController::class, 'addActor'])->name('add.actor')->middleware('can:create,' . Actor::class);
+    Route::post('/add', [ActorController::class, 'add'])->name('add')->middleware('can:create,' . Actor::class);
     Route::get('', [ActorController::class, 'list'])->name('list');
 
-    Route::group(['prefix' => '/{actor}/edit'], function () {
+    Route::group(['prefix' => '/{actor}/edit', 'middleware' => 'can:edit,actor'], function () {
         Route::get('', [ActorController::class, 'editActor'])->name('edit.actor');
         Route::post('', [ActorController::class, 'edit'])->name('edit');
     });

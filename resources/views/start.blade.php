@@ -23,11 +23,17 @@
         @endif
         @if (auth()->check())
             <li class="nav-item"><a href="{{ route('movies.list') }}" class="nav-link">Movies</a></li>
+            @can('create', \App\Models\Film::class)
             <li class="nav-item"><a href="{{ route('movies.add.film') }}" class="nav-link">Add Film</a></li>
+            @endcan
             <li class="nav-item"><a href="{{ route('genres.list') }}" class="nav-link">Film Genres</a></li>
+            @can('create', \App\Models\Genre::class)
             <li class="nav-item"><a href="{{ route('genres.add.genre') }}" class="nav-link">Add Film Genre</a></li>
+            @endcan
             <li class="nav-item"><a href="{{ route('actors.list') }}" class="nav-link">Actors</a></li>
+            @can('create', \App\Models\Actor::class)
             <li class="nav-item"><a href="{{ route('actors.add.actor') }}" class="nav-link">Add Actor</a></li>
+            @endcan
         @endif
         <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact Us</a></li>
         <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
@@ -39,7 +45,7 @@
         </form>
     @endif
 </header>
-<div class="container text-center justify-content-center">
+<div class="container">
     @include('flash-messages')
     @yield('content')
 </div>
