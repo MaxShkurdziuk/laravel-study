@@ -182,7 +182,8 @@ return [
         'middle_name' => 'Middle Name',
         'birthday' => 'Birthday Date',
         'height' => 'Height',
-        'actors' => 'Actors'
+        'actors' => 'Actors',
+        'films' => 'Movies',
     ],
 
 ];

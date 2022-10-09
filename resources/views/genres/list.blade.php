@@ -14,20 +14,26 @@
         </thead>
         <tbody>
         @foreach($genres as $genre)
-        <tr>
-            <th scope="row">{{ $genre->id }}</th>
-            <td>{{ $genre->name }}</td>
-            <td>{{ $genre->created_at?->format('d.m.y') }}</td>
-            <td>
-                <a href="{{ route('genres.edit.genre', ['genre' => $genre->id]) }}" class="btn btn-warning">Edit</a>
-                <form action="{{ route('genres.delete', ['genre' => $genre->id]) }}" method="post">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-danger">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <th scope="row">{{ $genre->id }}</th>
+                <td>{{ $genre->name }}</td>
+                <td>{{ $genre->created_at?->format('d.m.y') }}</td>
+                <td>
+                    @can('edit', $genre)
+                        <a href="{{ route('genres.edit.genre', ['genre' => $genre->id]) }}"
+                           class="btn btn-warning">Edit</a>
+                    @endcan
+
+                    @can('delete', $genre)
+                        <form action="{{ route('genres.delete', ['genre' => $genre->id]) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger">
+                                Delete
+                            </button>
+                        </form>
+                    @endcan
+                </td>
+            </tr>
         @endforeach
         </tbody>
     </table>

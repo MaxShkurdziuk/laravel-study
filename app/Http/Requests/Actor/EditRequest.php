@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
         return [
             'first_name' => ['required', 'min:1', 'max:255'],
             'last_name' => ['required', 'min:1', 'max:255'],
-            'middle_name' => ['required', 'min:1', 'max:255'],
+            'middle_name' => ['max:255'],
             'birthday' => ['required', 'date'],
             'height' => ['required', 'digits:3']
         ];
