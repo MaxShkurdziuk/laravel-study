@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\FilmObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,13 @@ class Film extends Model
         'created_at',
         'updated_at',
     ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::observe(FilmObserver::class);
+    }
 
     public function user()
     {
