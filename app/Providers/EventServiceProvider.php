@@ -32,12 +32,6 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
-    protected $observers = [
-        Film::class => [
-            FilmObserver::class,
-        ],
-    ];
-
     /**
      * Register any events for your application.
      *

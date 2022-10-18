@@ -57,6 +57,8 @@ class FilmController extends Controller
         $data = $request->validated();
         $film->fill($data);
         $film->genres()->sync($data['genres']);
+        $film->actors()->sync($data['actors']);
+
         $film->save();
 
         session()->flash('success', 'Film edited successfully!');
