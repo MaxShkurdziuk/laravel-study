@@ -25,10 +25,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('/about-us', [MainController::class, 'about'])->name('about');
+Route::get('/login-history', [MainController::class, 'showLoginHistory'])->name('login_history');
+
 Route::get('/contact-us', [MessageController::class, 'show'])->name('contact');
 Route::post('/contact-us', [MessageController::class, 'store'])->name('contact_store');
 
-Route::group(['prefix' => '/movies', 'as' => 'movies.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/movies', 'as' => 'movies.', 'middleware' => ['auth', 'user-verify']], function () {
     Route::get('/add', [FilmController::class, 'addFilm'])->name('add.film')->middleware('can:create,' . Film::class);
     Route::post('/add', [FilmController::class, 'add'])->name('add')->middleware('can:create,' . Film::class);
     Route::get('', [FilmController::class, 'list'])->name('list');

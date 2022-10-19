@@ -13,8 +13,6 @@ class MessageController extends Controller
     public function show()
     {
         return view('contact');
-        //trans('validation.required', ['attribute' => 'Тест']);
-        //trans('messages.welcome');
     }
 
     public function store(CreateMessageRequest $request)

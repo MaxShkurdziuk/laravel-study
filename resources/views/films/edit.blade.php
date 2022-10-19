@@ -40,6 +40,20 @@
                     @endforeach
                 </div>
 
+                <div class="form-group">
+                    <label for="">{{ __('validation.attributes.actors') }}</label>
+                    @error('actors')
+                    <div>{{ $message }}</div>
+                    @enderror
+                    @foreach($actors as $actor)
+                        <div class="form-check">
+                            <input type="checkbox" name="actors[]" value="{{ $actor->id }}" class="form-check-input"
+                                   @if($film->actors->contains('id', $actor->id)) checked @endif
+                            > {{ $actor->first_name }} {{ $actor->last_name }}
+                        </div>
+                    @endforeach
+                </div>
+
                 <div class="mb-3">
                     <label for="description">{{__('validation.attributes.description') }}</label>
                     <textarea name="description" rows="3"

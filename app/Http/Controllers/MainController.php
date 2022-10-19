@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Actor;
 use App\Models\Film;
 use App\Models\Genre;
+use App\Models\LoginHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
@@ -61,5 +64,12 @@ class MainController extends Controller
     public function about()
     {
         return view('about');
+    }
+
+    public function showLoginHistory(Request $request)
+    {
+        $logins = LoginHistory::query()->where('user_id', Auth::id())->paginate(8);
+
+        return view('login-history', ['logins' => $logins]);
     }
 }

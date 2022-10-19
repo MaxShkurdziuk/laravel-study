@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use App\Http\Requests\User\SignUpRequest;
 use App\Mail\EmailConfirm;
 use App\Models\User;
@@ -22,7 +23,8 @@ class UserController extends Controller
         $user = new User($data);
         $user->save();
 
-        Mail::to($user)->send(new EmailConfirm($user));
+        $event = new UserRegistered($user);
+        event($event);
 
         session()->flash('success', 'Success!');
 

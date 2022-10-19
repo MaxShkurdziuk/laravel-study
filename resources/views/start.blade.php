@@ -22,6 +22,7 @@
             <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
         @endif
         @if (auth()->check())
+            <li class="nav-item"><a href="{{ route('login_history') }}" class="nav-link">Login History</a></li>
             <li class="nav-item"><a href="{{ route('movies.list') }}" class="nav-link">Movies</a></li>
             @can('create', \App\Models\Film::class)
             <li class="nav-item"><a href="{{ route('movies.add.film') }}" class="nav-link">Add Film</a></li>
