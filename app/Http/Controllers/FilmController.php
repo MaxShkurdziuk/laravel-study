@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Film\CreateRequest;
 use App\Models\Actor;
 use App\Models\Genre;
+use App\Services\FilmService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Film\EditRequest;
 use App\Models\Film;
@@ -12,6 +13,10 @@ use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
+    public function __construct(private FilmService $filmService)
+    {
+    }
+
     public function addFilm()
     {
         $genres = Genre::all();
@@ -39,14 +44,9 @@ class FilmController extends Controller
     public function add(CreateRequest $request)
     {
         $data = $request->validated();
-        $film = new Film($data);
-
         $user = $request->user();
-        $film->user()->associate($user);
 
-        $film->save();
-        $film->genres()->attach($data['genres']);
-        $film->actors()->attach($data['actors']);
+        $film = $this->filmService->create($data, $user);
 
         session()->flash('success', 'Film added successfully!');
         return redirect()->route('movies.show', ['film' => $film->id]);
@@ -55,11 +55,7 @@ class FilmController extends Controller
     public function edit(Film $film, EditRequest $request)
     {
         $data = $request->validated();
-        $film->fill($data);
-        $film->genres()->sync($data['genres']);
-        $film->actors()->sync($data['actors']);
-
-        $film->save();
+        $this->filmService->edit($film, $data);
 
         session()->flash('success', 'Film edited successfully!');
 

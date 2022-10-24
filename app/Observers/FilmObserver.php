@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Jobs\UpdateArticleEmail;
+use App\Jobs\UpdatedFilmYearEmail;
 use App\Mail\UpdatedDate;
 use App\Models\Film;
 use App\Models\User;
@@ -21,10 +23,7 @@ class FilmObserver
         $isYearChanged = $film->year !== $film->getOriginal('year');
 
         if ($isYearChanged) {
-            $users = User::all()->except($film->user_id);
-            foreach ($users as $user) {
-                Mail::to($user->email)->send(new UpdatedDate($film));
-            }
+            UpdatedFilmYearEmail::dispatch($film);
         }
     }
 }
