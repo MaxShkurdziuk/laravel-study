@@ -54,6 +54,6 @@ class FilmController extends Controller
             'message' => 'Film successfully deleted',
         ];
 
-        return response($data, status: 204);
+        return response($data, status: 200);
     }
 }

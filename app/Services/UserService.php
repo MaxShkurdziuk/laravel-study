@@ -23,11 +23,7 @@ class UserService
 
     public function signIn(array $credentials, string $guard, SignInRequest $request): ?User
     {
-        $check = function ($user) {
-            return $user->email_verified_at !== null;
-        };
-
-        if (Auth::guard($guard)->attemptWhen($credentials, $check)) {
+        if (Auth::guard($guard)->attemptWhen($credentials)) {
             $user = auth($guard)->user();
             $event = new UserLoggedIn($user, $request);
             event($event);
