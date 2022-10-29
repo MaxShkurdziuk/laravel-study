@@ -23,10 +23,7 @@ class FilmObserver
         $isYearChanged = $film->year !== $film->getOriginal('year');
 
         if ($isYearChanged) {
-            $users = User::all()->except($film->user_id);
-            foreach ($users as $user) {
-                Mail::to($user->email)->send(new UpdatedDate($film));
-            }
+            UpdatedFilmYearEmail::dispatch($film);
         }
     }
 }
