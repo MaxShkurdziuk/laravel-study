@@ -6,12 +6,17 @@ use App\Events\UserRegistered;
 use App\Http\Requests\User\SignUpRequest;
 use App\Mail\EmailConfirm;
 use App\Models\User;
+use App\Services\UserService;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    public function __construct(private UserService $userService)
+    {
+    }
+
     public function signUpForm()
     {
         return view('sign-up');
@@ -20,11 +25,7 @@ class UserController extends Controller
     public function signUp(SignUpRequest $request)
     {
         $data = $request->validated();
-        $user = new User($data);
-        $user->save();
-
-        $event = new UserRegistered($user);
-        event($event);
+        $this->userService->register($data);
 
         session()->flash('success', 'Success!');
 
