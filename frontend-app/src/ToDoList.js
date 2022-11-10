@@ -38,7 +38,7 @@ function ToDoList() {
 
     const taskDelete = (toDoIndex) => {
 
-        const newTasks = [...tasks].filter((task, index) => index !== toDoIndex);
+        const newTasks = tasks.filter((task, index) => index !== toDoIndex);
         setTasks(newTasks);
       }
 
