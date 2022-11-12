@@ -12,20 +12,20 @@ function ToDoList() {
     const addTask = (e) => {
         e.preventDefault();
 
-    if(input === '') {
+    if (input === '') {
         return;
     }
 
-    const newTasks = [...tasks, {value: input, isDone: false}];
-    setTasks(newTasks);
+        const newTasks = [...tasks, {value: input, isDone: false}];
+        setTasks(newTasks);
 
-    setInput('');
-}
+        setInput('');
+    }
 
     const deleteTasks = (e) => {
         e.preventDefault();
         
-    setTasks([]);
+        setTasks([]);
     }
 
     const checkDone = (index) => {
@@ -40,7 +40,7 @@ function ToDoList() {
 
         const newTasks = tasks.filter((task, index) => index !== toDoIndex);
         setTasks(newTasks);
-      }
+    }
 
     return (
         <div className="container d-flex mt-4 justify-content-between">
@@ -70,7 +70,8 @@ function ToDoList() {
 
 function Task({ value, isDone, toggle, taskDelete }) {
     return (
-        <li className={`d-flex list-group-item justify-content-between bg-${isDone ? 'warning' : 'light'}`} style={isDone ? { textDecoration: 'line-through' } : { textDecoration: 'none' }} >
+        <li className={`d-flex list-group-item justify-content-between bg-${isDone ? 'warning' : 'light'}`} 
+        style={isDone ? { textDecoration: 'line-through' } : { textDecoration: 'none' }} >
           <input onChange={toggle} checked={isDone} className="form-check-input me-1" type="checkbox" />
           {value}
           <button onClick={taskDelete} class="btn-close" aria-label="Close"></button>
