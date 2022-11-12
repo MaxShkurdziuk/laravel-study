@@ -18,8 +18,8 @@ root.render(
   <React.StrictMode>
     <NotificationProvider>
       <NotificationBar />
-    <StorageTemperatureControl />
-    {/* <StorageTodoList /> */}
+    {/* <StorageTemperatureControl /> */}
+    <StorageTodoList />
     </NotificationProvider>
   </React.StrictMode>
 );

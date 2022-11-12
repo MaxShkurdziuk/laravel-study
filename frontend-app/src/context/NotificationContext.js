@@ -21,38 +21,18 @@ const NotificationProvider = (props) => {
         setText(message);
     }
 
-    const error = (message) => {
+    const danger = (message) => {
         setType('danger');
         setText(message);
     }
 
-    const done = (message) => {
-        setType('success');
-        setText(message);
-    }
-
-    const deleteAll = (message) => {
-        setType('danger');
-        setText(message);
-    }
-
-    const deleteTask = (message) => {
-        setType('warning');
-        setText(message);
-    }
-
-    const increment = (message) => {
-        setType('success');
-        setText(message);
-    }
-
-    const decrement = (message) => {
+    const warning = (message) => {
         setType('warning');
         setText(message);
     }
 
     return (
-        <NotificationContext.Provider value={{ type, text, success, error, done, deleteAll, deleteTask, increment, decrement }}>
+        <NotificationContext.Provider value={{ type, text, success, warning, danger }}>
             {props.children}
         </NotificationContext.Provider>
     );

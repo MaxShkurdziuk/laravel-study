@@ -17,7 +17,7 @@ function ToDoList(props) {
         e.preventDefault();
 
     if(input.current.value === '') {
-        context.error('Input is empty!');
+        context.danger('Input is empty!');
         return;
     }
 
@@ -33,7 +33,7 @@ function ToDoList(props) {
         e.preventDefault();
         
         setTasks([]);
-        context.deleteAll('All tasks was deleted!');
+        context.danger('All tasks was deleted!');
     }
 
     const checkDone = (index) => {
@@ -42,14 +42,14 @@ function ToDoList(props) {
         newTasks[index].isDone = !newTasks[index].isDone;
 
         setTasks(newTasks);
-        context.done('You`ve done the task!');
+        context.success('You`ve done the task!');
     }
 
     const taskDelete = (toDoIndex) => {
         const newTasks = tasks.filter((task, index) => index !== toDoIndex);
 
         setTasks(newTasks);
-        context.deleteTask('You`ve deleted the task!')
+        context.warning('You`ve deleted the task!')
     }
 
     return (
