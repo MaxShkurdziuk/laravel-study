@@ -1,31 +1,39 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import NotificationContext from "./context/NotificationContext";
 
 
-function ToDoList() {
-    const [input, setInput] = useState('');
-    const [tasks, setTasks] = useState([]);
+function ToDoList(props) {
+    const {save, load} = props;
 
-    const onChangeInput = (e) => {
-        setInput(e.target.value);
-    }
+    const input = useRef('');
+    const [tasks, setTasks] = useState(JSON.parse(load()) ?? []);
+    const context = useContext(NotificationContext);
+
+    useEffect(() => {
+        save(JSON.stringify(tasks));
+    }, [tasks]);
 
     const addTask = (e) => {
         e.preventDefault();
 
-    if (input === '') {
+    if(input.current.value === '') {
+        context.danger('Input is empty!');
         return;
     }
 
-        const newTasks = [...tasks, {value: input, isDone: false}];
+        const newTasks = [...tasks, {value: input.current.value, isDone: false}];
         setTasks(newTasks);
 
-        setInput('');
+        input.current.value = '';
+        input.current.blur();
+        context.success('Task was added successfully!');
     }
 
     const deleteTasks = (e) => {
         e.preventDefault();
         
         setTasks([]);
+        context.danger('All tasks was deleted!');
     }
 
     const checkDone = (index) => {
@@ -34,12 +42,14 @@ function ToDoList() {
         newTasks[index].isDone = !newTasks[index].isDone;
 
         setTasks(newTasks);
+        context.success('You`ve done the task!');
     }
 
     const taskDelete = (toDoIndex) => {
-
         const newTasks = tasks.filter((task, index) => index !== toDoIndex);
+
         setTasks(newTasks);
+        context.warning('You`ve deleted the task!')
     }
 
     return (
@@ -52,7 +62,7 @@ function ToDoList() {
                     <div className="input-group-append" onClick={deleteTasks}>
                         <button className="input-group-text btn-danger btn-lg">Delete All</button>
                     </div>
-                    <input onChange={onChangeInput} value={input} type="text" className="form-control p-2" />
+                    <input ref={input} type="text" className="form-control p-2" />
                     <div className="input-group-append">
                         <button className="input-group-text btn-success btn-lg">Add</button>
                     </div>

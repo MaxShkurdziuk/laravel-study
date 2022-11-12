@@ -5,12 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import TemperatureControl from './TemperatureControl';
 import ToDoList from './ToDoList';
+import saveToLocalStorage from './saveToLocalStorage';
+import { NotificationProvider } from './context/NotificationContext';
+import NotificationBar from './components/NotificationBanner';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const StorageTodoList = saveToLocalStorage('todo-list', ToDoList);
+const StorageTemperatureControl = saveToLocalStorage('temperature-control', TemperatureControl);
+
 root.render(
   <React.StrictMode>
-    {/* <TemperatureControl /> */}
-    <ToDoList />
+    <NotificationProvider>
+      <NotificationBar />
+    {/* <StorageTemperatureControl /> */}
+    <StorageTodoList />
+    </NotificationProvider>
   </React.StrictMode>
 );
 

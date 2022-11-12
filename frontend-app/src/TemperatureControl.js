@@ -1,19 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import NotificationContext from "./context/NotificationContext";
 
 
-function TemperatureControl() {
-    const [temp, setTemp] = useState(10);
+function TemperatureControl({save, load, initial = 10}) {
+
+    const [temp, setTemp] = useState(parseInt(load() ?? initial));
+    const context = useContext(NotificationContext);
 
     useEffect(() => {
         document.title = `Температура ${temp} градусов`
+        save(temp);
     });
 
     const increase = () => {
-        setTemp(temp >= 30 ? 30 : temp + 1);
+        if (30 > temp) {
+            context.success('You`ve added 1 degree!');
+            setTemp(temp >= 30 ? 30 : temp + 1);
+        } else {
+            context.warning('You can`t add degrees!');
+        }
     }
 
     const decrease = () => {
-        setTemp(temp ? temp - 1 : 0);
+        if (temp > 0) {
+            context.warning('You`ve turned down 1 degree!');
+            setTemp(temp ? temp - 1 : 0);
+        } else {
+            context.warning('You can`t turn down degrees!');
+        }
     }
 
     return (
