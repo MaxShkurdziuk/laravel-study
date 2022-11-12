@@ -13,13 +13,21 @@ function TemperatureControl({save, load, initial = 10}) {
     });
 
     const increase = () => {
-        setTemp(temp >= 30 ? 30 : temp + 1);
-        context.increment('You`ve added 1 degree!');
+        if (30 > temp) {
+            context.increment('You`ve added 1 degree!');
+            setTemp(temp >= 30 ? 30 : temp + 1);
+        } else {
+            context.decrement('You can`t add degrees!');
+        }
     }
 
     const decrease = () => {
-        setTemp(temp ? temp - 1 : 0);
-        context.decrement('You`ve turned down 1 degree!');
+        if (temp > 0) {
+            context.decrement('You`ve turned down 1 degree!');
+            setTemp(temp ? temp - 1 : 0);
+        } else {
+            context.decrement('You can`t turn down degrees!');
+        }
     }
 
     return (
