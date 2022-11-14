@@ -8,6 +8,13 @@ import ToDoList from './ToDoList';
 import saveToLocalStorage from './saveToLocalStorage';
 import { NotificationProvider } from './context/NotificationContext';
 import NotificationBar from './components/NotificationBanner';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Film from './pages/Film';
+import Genres from './pages/Genres';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,9 +24,20 @@ const StorageTemperatureControl = saveToLocalStorage('temperature-control', Temp
 root.render(
   <React.StrictMode>
     <NotificationProvider>
-      <NotificationBar />
-    {/* <StorageTemperatureControl /> */}
-    <StorageTodoList />
+      <BrowserRouter>
+        <Header/>
+        <div className='container'>
+          <NotificationBar/>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/about' element={<About/>}/>
+            <Route path='/movies'>
+              <Route path=':id' element={<Film />}/>
+            </Route>
+          </Routes>
+        </div>
+        <Footer/>
+      </BrowserRouter>
     </NotificationProvider>
   </React.StrictMode>
 );

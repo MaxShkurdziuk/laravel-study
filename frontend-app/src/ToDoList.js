@@ -3,7 +3,7 @@ import NotificationContext from "./context/NotificationContext";
 
 
 function ToDoList(props) {
-    const {save, load} = props;
+    const {save, load = () => {}} = props;
 
     const input = useRef('');
     const [tasks, setTasks] = useState(JSON.parse(load()) ?? []);
